@@ -2,6 +2,8 @@ web:
   image: berpj/web-demo
   ports:
     - "80:80"
+  links:
+    - app
 app:
   image: berpj/app-demo
   links:
@@ -13,14 +15,14 @@ app:
     DB_HOST: db
     DB_PORT: 5432
     DB_ADAPTER: postgresql
-    DB_DATABASE: todo
-    DB_USER: todo
-    DB_PASS: mypass
+    DB_DATABASE: tododb
+    DB_USER: todouser
+    DB_PASS: myPwd
 db:
   image: macadmins/postgres
-  volumes_from:
-    - dbdata
+  volumes:
+    - ./dbdata:/var/lib/postgresql
   environment:
-    DB_NAME: todo
-    DB_USER: todo
-    DB_PASS: mypass
+    DB_NAME: tododb
+    DB_USER: todouser
+    DB_PASS: myPwd
